@@ -8,8 +8,8 @@ namespace WebUI.Helpers
 {
     public interface ICartSessionHelper
     {
-        Cart Getcart();
-        void SetCart(Cart cart);
+        Cart GetCart(string key);
+        void SetCart(string key, Cart cart);
         void Clear();
     }
 }

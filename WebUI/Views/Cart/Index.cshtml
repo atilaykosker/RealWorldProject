@@ -1,0 +1,31 @@
+﻿@model CartListViewModel
+
+
+<h2>Products</h2>
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Product Name</th>
+            <th>Product Details</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    @foreach (var cartLine in Model.Cart.CartLines)
+    {
+        <tbody>
+            <tr>
+                <td>@cartLine.Product.ProductId</td>
+                <td>@cartLine.Product.ProductName</td>
+                <td>@cartLine.Product.QuantityPerUnit</td>
+                <td>@cartLine.Product.UnitPrice</td>
+                <td>@cartLine.Product.UnitsInStock</td>
+                <td>@cartLine.Quantity</td>
+                <td><a class="btn btn-sm btn-danger" asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@cartLine.Product.ProductId">Remove</a></td>
+            </tr>
+        </tbody>
+
+    }
+</table>
