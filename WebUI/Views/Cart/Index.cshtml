@@ -2,6 +2,14 @@
 
 
 <h2>Products</h2>
+@if (Model.Cart.CartLines.Count == 0)
+{
+<h2 class="badge badge-danger">
+    Your cart is empty
+</h2>
+}
+else
+{
 <table class="table table-responsive">
     <thead>
         <tr>
@@ -29,3 +37,4 @@
 
     }
 </table>
+}

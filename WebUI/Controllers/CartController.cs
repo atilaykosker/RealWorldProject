@@ -31,6 +31,8 @@ namespace WebUI.Controllers
             _cartService.AddToCart(cart, product);
             _cartSessionHelper.SetCart("cart",cart);
 
+            TempData.Add("message", product.ProductName + "added to your cart.");
+
             return RedirectToAction("Index", "Product");
         }
 
@@ -41,7 +43,8 @@ namespace WebUI.Controllers
             _cartService.RemoveFromCart(cart, productId);
             _cartSessionHelper.SetCart("cart",cart);
 
-            return RedirectToAction("Index", "Product");
+            TempData.Add("message", product.ProductName + "removed in your cart.");
+            return RedirectToAction("Index", "Cart");
         }
 
         public IActionResult Index()
@@ -52,5 +55,27 @@ namespace WebUI.Controllers
             };
             return View(model);
         }
+
+        public IActionResult Complete()
+        {
+            var model = new ShippingDetailsViewModel
+            {
+                ShippingDetail = new ShippingDetail()
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Complete(ShippingDetail shippingDetail)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            TempData.Add("message", "Your order has been successfully completed.");
+            _cartSessionHelper.Clear();
+            return RedirectToAction("Index", "Cart");
+        }
     }
+
 }
